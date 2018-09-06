@@ -5,6 +5,7 @@ class TreeNode:
         self.right = None
 
 class Algorithm:
+    ## first - using recursion step by step
     def invertTree(self, root):
         if not root:
             return None
@@ -20,6 +21,24 @@ class Algorithm:
         root.left, root.right = self.switch(right), self.switch(left)
         return root
 
+    ## second - short version 
+    def invertTree_1(self, root):
+        if root:
+            root.left, root.right = self.invertTree_1(root.right), self.invertTree_1(root.left)
+        return root
+    
+    ## thrid iterative way
+    def invertTree_2(self, root):
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node:
+                node.left, node.right = node.right, node.left
+                stack.extend([node.right, node.left])
+            else:
+                continue
+        return root
+        
 ### test case ###
 
 '''
